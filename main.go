@@ -9,7 +9,17 @@ import (
 )
 
 func main() {
-	query, err := gojq.Parse(".foo | ..")
+	r, err := git.PlainClone("/tmp/foo", false, &git.CloneOptions{
+		URL: "/home/gramsz/Code/cv/.git",
+        })
+        if err != nil {
+        	log.Fatal(err)
+        }
+	fmt.Printf("%s\n", r)
+
+
+
+	query, err := gojq.Parse("reduce inputs as $file ({}; . + $file)")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -25,12 +35,4 @@ func main() {
 		}
 		fmt.Printf("%#v\n", v)
 	}
-
-	r, err := git.PlainClone("/tmp/foo", false, &git.CloneOptions{
-		URL: "https://github.com/git-fixtures/basic.git",
-        })
-        if err != nil {
-        	log.Fatal(err)
-        }
-	fmt.Printf("%s\n", r)
 }

@@ -1,4 +1,4 @@
-module github.com/olorin37/goetc
+module github.com/olorin37/etcgo
 
 go 1.21.4
 
